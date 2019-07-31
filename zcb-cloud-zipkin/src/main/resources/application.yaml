@@ -1,0 +1,17 @@
+server:
+  port: 8015
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8011/eureka
+
+spring:
+  application:
+    name: zcb-cloud-zipkin
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
