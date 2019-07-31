@@ -1,0 +1,19 @@
+server:
+  port: 8014
+
+spring:
+  application:
+    name: zcb-cloud-zuul
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8011/eureka
+zuul:
+  routes:
+    consumer:
+      path: /zcb-cloud-consumer/**
+      serviceId: zcb-cloud-consumer
+
+
+
