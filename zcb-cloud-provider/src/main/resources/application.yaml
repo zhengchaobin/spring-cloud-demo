@@ -15,3 +15,9 @@ spring:
     sampler:
       percentage: 1.0
 
+app:
+  id: zcb-cloud-provider
+
+apollo:
+  meta: http://localhost:8080
+
