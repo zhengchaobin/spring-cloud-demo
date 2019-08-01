@@ -8,6 +8,12 @@ eureka:
 spring:
   application:
     name: zcb-cloud-consumer
+  zipkin:
+    base-url: http://localhost:8015/
+  sleuth:
+    sampler:
+      percentage: 1.0
+
 feign:
   hystrix:
     enabled: true
