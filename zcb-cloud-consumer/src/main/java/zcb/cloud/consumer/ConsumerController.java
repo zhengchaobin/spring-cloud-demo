@@ -1,8 +1,11 @@
 package zcb.cloud.consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import zcb.cloud.feign.ServiceFeign;
 
 /**
@@ -10,7 +13,8 @@ import zcb.cloud.feign.ServiceFeign;
  * Date: 2019/7/30
  * Description:
  **/
-@RestController
+@Controller
+@RequestMapping("qr")
 public class ConsumerController {
 
 
@@ -18,10 +22,27 @@ public class ConsumerController {
     ServiceFeign serviceFeign;
 
     @RequestMapping("/consumer")
-    public void consumerTest(String name){
+    public void consumerTest(String name) {
         System.out.println("consumer name:" + name);
         String hello = serviceFeign.hello(name);
         System.out.println("consumer result:" + hello);
+    }
+
+
+    @RequestMapping(value = {"{qrcodeSerial}", "{shopid}/{sid}/{qrcodeSerial:[a-zA-Z0-9\\\\.]+}"})
+    public ModelAndView bsIndex(@PathVariable("shopid") String shopId, @PathVariable("qrcodeSerial") String qrcodeSerial) {
+        if (qrcodeSerial.contains(".txt")) {
+            return new ModelAndView("forward:/qr/qrcode_default" + "/" + shopId + "/" + qrcodeSerial);
+        }
+        return null;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/qrcode_default/{shopid}/{qrcodeSerial:[a-zA-Z0-9\\\\.]+}")
+    public String defaultD(@PathVariable("shopid") Long shopId, @PathVariable("qrcodeSerial") String qrcodeSerial) {
+        System.out.println(shopId + "," + qrcodeSerial);
+        return shopId + "," + qrcodeSerial;
     }
 
 
