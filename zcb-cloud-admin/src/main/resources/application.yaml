@@ -1,0 +1,10 @@
+server:
+  port: 8016
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8011/eureka
+spring:
+  application:
+    name: zcb-cloud-admin
+
